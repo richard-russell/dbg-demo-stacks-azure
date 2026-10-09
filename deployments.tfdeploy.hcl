@@ -22,7 +22,7 @@ locals {
   network_location        = "uksouth"
 
   # Azure AD provider credentials
-  azuread_client_id = "00000000-0000-0000-0000-000000000003" # TODO: azuread app reg client ID
+  azuread_client_id = "045d241f-5a2a-44ef-b550-42bf8ac31161" # TODO: azuread app reg client ID
 
   common_extra_tags = { Demo = "demo-3-stacks-azure", ManagedBy = "Terraform Stacks" }
 }

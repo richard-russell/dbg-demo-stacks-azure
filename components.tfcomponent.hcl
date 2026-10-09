@@ -1,14 +1,12 @@
-# Single landing zone component — one per deployment
-component "landing_zone" {
-  source = "./modules/landing-zone"
+# -----------------------------------------------------------------------------
+# Removed blocks — destroy resources from the three previous components before
+# they are replaced by lz_hub. Leave these in place until all deployment destroy
+# runs have completed, then remove along with the old module directories.
+# -----------------------------------------------------------------------------
 
-  inputs = {
-    name            = "stack-${var.lz_name}-${var.environment}"
-    environment     = var.environment
-    location        = var.lz_location
-    subscription_id = var.lz_subscription_id
-    extra_tags      = var.extra_tags
-  }
+removed {
+  from   = component.landing_zone
+  source = "./modules/landing-zone"
 
   providers = {
     azurerm.lz = provider.azurerm.lz
@@ -16,37 +14,51 @@ component "landing_zone" {
   }
 }
 
-# Single shared networking component
-component "shared_network" {
+removed {
+  from   = component.shared_network
   source = "./modules/shared-network"
-
-  inputs = {
-    name       = "stack-${var.lz_name}-network-${var.environment}"
-    location   = var.network_location
-    extra_tags = var.extra_tags
-  }
 
   providers = {
     azurerm.network = provider.azurerm.network
   }
 }
 
-# Link component: reads from the network hub (azurerm.network) and writes into
-# the LZ Key Vault (azurerm.lz) — demonstrates both providers in a single module,
-# mirroring the customer's module "lz1" { providers = { azurerm.lz, azurerm.network } } pattern
-component "lz_network_link" {
+removed {
+  from   = component.lz_network_link
   source = "./modules/lz-network-link"
 
+  providers = {
+    azurerm.lz      = provider.azurerm.lz
+    azurerm.network = provider.azurerm.network
+  }
+}
+
+# -----------------------------------------------------------------------------
+# Single component per deployment.
+# The lz-hub module receives both azurerm.lz and azurerm.network, plus azuread,
+# mirroring the customer's pattern:
+#   module "lz1" {
+#     providers = {
+#       azurerm.lz      = azurerm.lz1
+#       azurerm.network = azurerm.network
+#       azuread         = azuread
+#     }
+#   }
+component "lz_hub" {
+  source = "./modules/lz-hub"
+
   inputs = {
-    # Consumed from component.shared_network — Stacks applies that component first
-    network_resource_group_name = component.shared_network.resource_group_name
-    # Consumed from component.landing_zone — creates an explicit dependency
-    key_vault_id = component.landing_zone.key_vault_id
-    extra_tags   = var.extra_tags
+    lz_name            = var.lz_name
+    environment        = var.environment
+    lz_location        = var.lz_location
+    lz_subscription_id = var.lz_subscription_id
+    network_location   = var.network_location
+    extra_tags         = var.extra_tags
   }
 
   providers = {
     azurerm.lz      = provider.azurerm.lz
     azurerm.network = provider.azurerm.network
+    azuread         = provider.azuread.this
   }
 }

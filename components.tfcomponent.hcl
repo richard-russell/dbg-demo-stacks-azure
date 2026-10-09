@@ -38,8 +38,9 @@ component "lz_network_link" {
   source = "./modules/lz-network-link"
 
   inputs = {
-    # Consumed from component.shared_network — creates an explicit dependency
+    # Both consumed from component.shared_network — creates an explicit dependency
     network_resource_group_name = component.shared_network.resource_group_name
+    network_resource_group_id   = component.shared_network.resource_group_id
     # Consumed from component.landing_zone — creates an explicit dependency
     key_vault_id = component.landing_zone.key_vault_id
     extra_tags   = var.extra_tags

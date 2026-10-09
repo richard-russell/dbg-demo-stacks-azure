@@ -18,6 +18,10 @@ removed {
   from   = component.shared_network
   source = "./modules/shared-network"
 
+  lifecycle {
+    destroy = false # RGs orphaned in Azure — delete manually. lz_01's RG never existed; lz_02/lz_03 RGs are superseded by lz_hub.
+  }
+
   providers = {
     azurerm.network = provider.azurerm.network
   }
@@ -26,6 +30,10 @@ removed {
 removed {
   from   = component.lz_network_link
   source = "./modules/lz-network-link"
+
+  lifecycle {
+    destroy = false # lz_network_link resources were never fully applied across all deployments.
+  }
 
   providers = {
     azurerm.lz      = provider.azurerm.lz

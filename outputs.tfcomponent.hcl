@@ -15,3 +15,9 @@ output "shared_network_resource_group_name" {
   description = "Resource group name for the shared network hub"
   value       = component.shared_network.resource_group_name
 }
+
+output "network_hub_secret_id" {
+  type        = string
+  description = "Resource ID of the Key Vault secret storing the network hub resource group ID"
+  value       = component.lz_network_link.network_hub_secret_id
+}

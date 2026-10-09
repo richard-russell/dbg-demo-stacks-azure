@@ -8,6 +8,10 @@ removed {
   from   = component.landing_zone
   source = "./modules/landing-zone"
 
+  lifecycle {
+    destroy = false # Old landing_zone resources are in a partial/inconsistent state — orphan and supersede with lz_hub.
+  }
+
   providers = {
     azurerm.lz = provider.azurerm.lz
     azuread    = provider.azuread.this

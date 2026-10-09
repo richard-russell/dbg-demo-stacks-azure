@@ -21,7 +21,7 @@ component "shared_network" {
   source = "./modules/shared-network"
 
   inputs = {
-    name       = "stack-shared-network-${var.environment}"
+    name       = "stack-${var.lz_name}-network-${var.environment}"
     location   = var.network_location
     extra_tags = var.extra_tags
   }

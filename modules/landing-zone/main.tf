@@ -71,7 +71,7 @@ resource "azurerm_key_vault_access_policy" "deployer" {
   tenant_id    = data.azurerm_client_config.lz.tenant_id
   object_id    = data.azurerm_client_config.lz.object_id
 
-  secret_permissions = ["Get", "Set", "List"]
+  secret_permissions = ["Get", "Set", "List", "Delete"]
 }
 
 # -----------------------------------------------------------------------------

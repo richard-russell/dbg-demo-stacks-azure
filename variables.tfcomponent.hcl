@@ -1,28 +1,28 @@
-variable "identity_token_lz" {
+variable "identity_token" {
   type        = string
-  description = "OIDC JWT for the per-LZ azurerm provider instances"
+  description = "OIDC JWT issued by HCP Terraform — shared across all Azure provider instances (same audience)"
   ephemeral   = true
 }
 
-variable "identity_token_network" {
+variable "lz_name" {
   type        = string
-  description = "OIDC JWT for the shared azurerm.network provider"
-  ephemeral   = true
+  description = "Landing zone identifier used as a resource name prefix (e.g. lz-01)"
 }
 
-variable "identity_token_azuread" {
+variable "lz_subscription_id" {
   type        = string
-  description = "OIDC JWT for the azuread provider"
-  ephemeral   = true
+  description = "Azure subscription ID for this landing zone"
 }
 
-variable "lz_configs" {
-  type = map(object({
-    subscription_id = string
-    client_id       = string
-    location        = string
-  }))
-  description = "Map of landing zone configurations keyed by LZ identifier (e.g. lz_01)"
+variable "lz_client_id" {
+  type        = string
+  description = "Client ID of the app registration for this landing zone"
+}
+
+variable "lz_location" {
+  type        = string
+  description = "Azure region for landing zone resources"
+  default     = "uksouth"
 }
 
 variable "environment" {

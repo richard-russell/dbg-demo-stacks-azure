@@ -1,13 +1,9 @@
 deployment "lz_03" {
   inputs = {
-    # Single-entry map so for_each on provider/component resolves to exactly one instance
-    lz_configs = {
-      lz_03 = {
-        subscription_id = local.lz_subscription_ids["lz_03"]
-        client_id       = local.lz_client_ids["lz_03"]
-        location        = "uksouth"
-      }
-    }
+    lz_name            = "lz-03"
+    lz_subscription_id = "00000000-0000-0000-0000-000000000030" # TODO: lz_03 subscription ID
+    lz_client_id       = "00000000-0000-0000-0000-000000000031" # TODO: lz_03 app reg client ID
+    lz_location        = "uksouth"
 
     environment = "dev"
 
@@ -17,9 +13,7 @@ deployment "lz_03" {
     network_location        = local.network_location
     azuread_client_id       = local.azuread_client_id
 
-    identity_token_lz      = identity_token.azurerm_lz.jwt
-    identity_token_network = identity_token.azurerm_network.jwt
-    identity_token_azuread = identity_token.azuread.jwt
+    identity_token = identity_token.azure.jwt
 
     extra_tags = merge(local.common_extra_tags, { Deployment = "lz-03", Environment = "dev" })
   }

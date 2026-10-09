@@ -1,19 +1,17 @@
-# One landing zone component instance per entry in lz_configs
+# Single landing zone component — one per deployment
 component "landing_zone" {
-  for_each = var.lz_configs
-
   source = "./modules/landing-zone"
 
   inputs = {
-    name            = "stack-${each.key}-${var.environment}"
+    name            = "stack-${var.lz_name}-${var.environment}"
     environment     = var.environment
-    location        = each.value.location
-    subscription_id = each.value.subscription_id
+    location        = var.lz_location
+    subscription_id = var.lz_subscription_id
     extra_tags      = var.extra_tags
   }
 
   providers = {
-    azurerm.lz = provider.azurerm.lz[each.key]
+    azurerm.lz = provider.azurerm.lz
     azuread    = provider.azuread.this
   }
 }

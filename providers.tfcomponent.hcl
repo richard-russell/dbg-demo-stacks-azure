@@ -9,22 +9,20 @@ required_providers {
   }
 }
 
-# One provider instance per landing zone — keyed by lz_configs map key
+# Per-deployment landing zone provider — one instance, authenticated as the LZ app registration
 provider "azurerm" "lz" {
-  for_each = var.lz_configs
-
   config {
     features {}
 
-    subscription_id = each.value.subscription_id
+    subscription_id = var.lz_subscription_id
     tenant_id       = var.tenant_id
-    client_id       = each.value.client_id
+    client_id       = var.lz_client_id
     use_oidc        = true
-    oidc_token      = var.identity_token_lz
+    oidc_token      = var.identity_token
   }
 }
 
-# Single shared provider for the network hub subscription
+# Shared provider for the network hub subscription
 provider "azurerm" "network" {
   config {
     features {}
@@ -33,16 +31,16 @@ provider "azurerm" "network" {
     tenant_id       = var.tenant_id
     client_id       = var.network_client_id
     use_oidc        = true
-    oidc_token      = var.identity_token_network
+    oidc_token      = var.identity_token
   }
 }
 
-# Single shared Azure AD provider
+# Shared Azure AD provider
 provider "azuread" "this" {
   config {
     tenant_id  = var.tenant_id
     client_id  = var.azuread_client_id
     use_oidc   = true
-    oidc_token = var.identity_token_azuread
+    oidc_token = var.identity_token
   }
 }

@@ -3,11 +3,6 @@ variable "network_resource_group_name" {
   type        = string
 }
 
-variable "network_resource_group_id" {
-  description = "Resource ID of the shared network hub resource group (tagged onto LZ resources via azurerm.lz, and used to tag the network hub via azurerm.network)"
-  type        = string
-}
-
 variable "key_vault_id" {
   description = "Resource ID of the landing zone Key Vault (written via azurerm.lz)"
   type        = string

@@ -14,6 +14,8 @@ provider "azurerm" "lz" {
   for_each = var.lz_configs
 
   config {
+    features {}
+
     subscription_id = each.value.subscription_id
     tenant_id       = var.tenant_id
     client_id       = each.value.client_id
@@ -25,6 +27,8 @@ provider "azurerm" "lz" {
 # Single shared provider for the network hub subscription
 provider "azurerm" "network" {
   config {
+    features {}
+
     subscription_id = var.network_subscription_id
     tenant_id       = var.tenant_id
     client_id       = var.network_client_id

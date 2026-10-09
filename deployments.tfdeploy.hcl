@@ -14,11 +14,11 @@ identity_token "azure" {
 # -----------------------------------------------------------------------------
 
 locals {
-  tenant_id = "00000000-0000-0000-0000-000000000000" # TODO: replace with real tenant ID
+  tenant_id = "237fbc04-c52a-458b-af97-eaf7157c0cd4" # TODO: replace with real tenant ID
 
   # Shared network provider credentials
-  network_subscription_id = "00000000-0000-0000-0000-000000000001" # TODO: network subscription ID
-  network_client_id       = "00000000-0000-0000-0000-000000000002" # TODO: network app reg client ID
+  network_subscription_id = "30e50df1-bf94-4972-98a1-6fae5960a1d9" # TODO: network subscription ID
+  network_client_id       = "045d241f-5a2a-44ef-b550-42bf8ac31161" # TODO: network app reg client ID
   network_location        = "uksouth"
 
   # Azure AD provider credentials

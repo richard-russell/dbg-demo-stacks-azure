@@ -1,8 +1,8 @@
 deployment "lz_01" {
   inputs = {
     lz_name            = "lz-01"
-    lz_subscription_id = "00000000-0000-0000-0000-000000000010" # TODO: lz_01 subscription ID
-    lz_client_id       = "00000000-0000-0000-0000-000000000011" # TODO: lz_01 app reg client ID
+    lz_subscription_id = "30e50df1-bf94-4972-98a1-6fae5960a1d9" # TODO: lz_01 subscription ID
+    lz_client_id       = "045d241f-5a2a-44ef-b550-42bf8ac31161" # TODO: lz_01 app reg client ID
     lz_location        = "uksouth"
 
     environment = "dev"
